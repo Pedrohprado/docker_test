@@ -1,0 +1,26 @@
+services:
+  api-test-docker:
+    build: .
+    ports:
+      - "3000:3333"
+    env_file:
+      - .env
+    depends_on:
+      - database-test-docker
+    networks:
+      - test-network
+  
+  database-test-docker:
+    image: postgres:16
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=test
+    networks:
+      - test-network
+
+networks:
+  test-network:
+    driver: bridge

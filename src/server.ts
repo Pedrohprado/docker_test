@@ -1,6 +1,9 @@
 import fastify from 'fastify';
+import { mainRoutes } from './http/routes/main.js';
 
 const app = fastify();
+
+app.register(mainRoutes, { prefix: '/api' });
 
 app.get('/teste', () => {
   return { test: 'test' };
